@@ -1,0 +1,7 @@
+* text=auto
+*.xsa binary
+*.bit binary
+*.bin binary
+*.dcp binary
+*.elf binary
+*.sh text eol=lf
