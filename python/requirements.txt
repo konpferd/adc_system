@@ -1,0 +1,14 @@
+# All Python tools of the ADC project (adc_scope, simulator, logger, capture viewer)
+# Install:  python -m pip install -r requirements.txt
+# Python 3.9 or newer. Developed with Python 3.12/3.13, numpy 2.x, pandas 2.x/3.x,
+# pyqtgraph 0.13/0.14, PySide6 6.5+.
+
+numpy>=1.24
+pandas>=2.0
+pyqtgraph>=0.13.3
+
+# Qt binding (pyqtgraph needs exactly one). PySide6 is the tested one.
+PySide6>=6.5
+
+# Optional: much faster CSV loading in the capture viewer
+pyarrow>=14

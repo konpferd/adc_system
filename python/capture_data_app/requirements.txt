@@ -1,0 +1,16 @@
+# ADC capture viewer (adc_plot_csv.py)
+# Install:  python -m pip install -r requirements.txt
+# Python 3.9 or newer. Developed and smoke-tested with Python 3.12,
+# numpy 2.4, pandas 3.0, pyqtgraph 0.14, PySide6 6.12.
+
+numpy>=1.24
+pandas>=2.0
+pyqtgraph>=0.13.3
+
+# Qt binding (pyqtgraph needs exactly one). PySide6 is the tested one.
+# PyQt5 also works if you prefer it (replace the line below with: PyQt5>=5.15).
+# PyQt6 is NOT supported by the current code (it uses short Qt enum names).
+PySide6>=6.5
+
+# Optional: much faster CSV loading for large captures (used automatically if installed)
+pyarrow>=14

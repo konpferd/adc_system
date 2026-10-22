@@ -1,3 +1,8 @@
+#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <inttypes.h>
+
 #include "adc_hw.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -8,8 +13,33 @@
 #include "xil_cache.h"
 #include "xil_printf.h"
 #include "xgpio.h"
-#include <string.h>
-#include <stdbool.h>
+
+/* Logging settings:
+ * <=0 	- no logs
+ * 1 	- UART console only
+ * 2 	- TCP console only
+ * >=3 	- TCP + UART
+ */
+#define ADC_HW_LOG_SETTING        3
+
+#if ADC_HW_LOG_SETTING <= 0
+#define ADC_HW_LOG(...)             ((void)0)
+#elif ADC_HW_LOG_SETTING == 1
+#define ADC_HW_LOG(...)             xil_printf(__VA_ARGS__)
+#elif ADC_HW_LOG_SETTING == 2
+#include "console.h"
+#define ADC_HW_LOG(...)             console_printf(__VA_ARGS__)
+#elif ADC_HW_LOG_SETTING >= 3
+#include "console.h"
+#define ADC_HW_LOG(...)                                 \
+    do {                                                \
+        char adc_log_buf_[128];                         \
+        snprintf(adc_log_buf_, sizeof(adc_log_buf_),    \
+                 __VA_ARGS__);                          \
+        xil_printf("%s", adc_log_buf_);                 \
+        console_printf("%s", adc_log_buf_);             \
+    } while (0)
+#endif
 
 #define BATCH_GPIO_DEVICE_ID  XPAR_AXI_GPIO_0_DEVICE_ID
 #define BATCH_GPIO_CHANNEL    1
@@ -35,6 +65,14 @@ static SemaphoreHandle_t dma_rx_sem;
 static uint8_t g_adc_buf[ADC_NUM_BUFS][ADC_BATCH_BYTES] __attribute__((aligned(64)));
 
 static volatile uint32_t isr_hit_count = 0;
+
+static volatile bool g_abort_read = false;
+
+void adc_hw_abort_read(void)
+{
+    g_abort_read = true;
+    xSemaphoreGive(dma_rx_sem);
+}
 
 static void adc_hw_set_stream_configure(){
 	uint16_t ctrl = (g_batch_words & 0x7FFFu) | ((hw_stream_enabled ? 1u : 0u) << 15);
@@ -118,18 +156,18 @@ static void dma_rx_isr(void *CallbackRef) {
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-static int dma_restart(void)
+int adc_hw_start_stream(void)
 {
     uint32_t len = g_batch_words * ADC_ENTRY_SIZE;
 
-    xil_printf("DMA: resetting S2MM...\r\n");
     adc_hw_disable_stream();
 
     XAxiDma_Reset(&AxiDma);
 
     if (!XAxiDma_ResetIsDone(&AxiDma)) {
-        while (!XAxiDma_ResetIsDone(&AxiDma)) {
-        }
+    	uint32_t guard = 1000000;
+    	while (!XAxiDma_ResetIsDone(&AxiDma) && --guard) { }
+    	if (!guard) { ADC_HW_LOG("DMA: reset timeout\r\n"); return XST_FAILURE; }
     }
 
     XAxiDma_IntrDisable(
@@ -141,6 +179,8 @@ static int dma_restart(void)
         &AxiDma,
         (XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_ERROR_MASK),
         XAXIDMA_DEVICE_TO_DMA);
+
+    g_abort_read = false;
 
     while (xSemaphoreTake(dma_rx_sem, 0) == pdTRUE) {}
 
@@ -154,22 +194,8 @@ static int dma_restart(void)
 	        len,
 	        XAXIDMA_DEVICE_TO_DMA);
 
-	xil_printf("DMA SimpleTransfer rc=%d\r\n", rc);
-
-	xil_printf("DMA regs immediately after arm:\r\n");
-	xil_printf("  CR   = 0x%08lx\r\n",
-			   (unsigned long)XAxiDma_ReadReg(AxiDma.RegBase, 0x30));
-	xil_printf("  SR   = 0x%08lx\r\n",
-			   (unsigned long)XAxiDma_ReadReg(AxiDma.RegBase, 0x34));
-	xil_printf("  DA   = 0x%08lx\r\n",
-			   (unsigned long)XAxiDma_ReadReg(AxiDma.RegBase, 0x48));
-	xil_printf("  DA_M = 0x%08lx\r\n",
-			   (unsigned long)XAxiDma_ReadReg(AxiDma.RegBase, 0x4C));
-	xil_printf("  LEN  = 0x%08lx\r\n",
-			   (unsigned long)XAxiDma_ReadReg(AxiDma.RegBase, 0x58));
-
 	if (rc != XST_SUCCESS) {
-		xil_printf("DMA: restart failed\r\n");
+		ADC_HW_LOG("DMA: restart failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -192,7 +218,9 @@ int adc_hw_init(XScuGic *IntcInstance) {
     if (XAxiDma_HasSg(&AxiDma)) return XST_FAILURE;
 
     XAxiDma_Reset(&AxiDma);
-	while (!XAxiDma_ResetIsDone(&AxiDma)) {}
+    uint32_t guard = 1000000;
+    while (!XAxiDma_ResetIsDone(&AxiDma) && --guard) { }
+    if (!guard) { ADC_HW_LOG("DMA: reset timeout\r\n"); return XST_FAILURE; }
 
 	dma_rx_sem = xSemaphoreCreateBinary();
 
@@ -225,24 +253,17 @@ int adc_hw_init(XScuGic *IntcInstance) {
         return XST_FAILURE;
     }
 
-    uint32_t s = XAxiDma_ReadReg(AxiDma.RegBase, 0x34);
-    uint32_t c = XAxiDma_ReadReg(AxiDma.RegBase, 0x30);
-
-    xil_printf("\r\nIMMEDIATE: DMACR=%08lx DMASR=%08lx\r\n", c, s);
-    xil_printf("DMA RegBase = 0x%08lx\r\n",
-               (unsigned long)AxiDma.RegBase);
-
     return XST_SUCCESS;
 }
 
 uint32_t adc_hw_read(uint8_t *adc_data, uint32_t max_batch_length)
 {
     if (max_batch_length > ADC_MAX_WORDS_PER_BATCH) {
-        xil_printf(
-            "adc_hw_read: caller asked for %u entries, "
-            "hardware batch is limited at %d\r\n",
-            max_batch_length,
-            ADC_MAX_WORDS_PER_BATCH);
+    	ADC_HW_LOG(
+    	    "adc_hw_read: caller asked for %" PRIu32 " entries, "
+    	    "hardware batch is limited at %d\r\n",
+    	    max_batch_length,
+    	    ADC_MAX_WORDS_PER_BATCH);
 
         return 0;
     }
@@ -269,39 +290,36 @@ uint32_t adc_hw_read(uint8_t *adc_data, uint32_t max_batch_length)
 		    AxiDma.RegBase,
 			XAXIDMA_RX_OFFSET + XAXIDMA_BUFFLEN_OFFSET);
 
-		xil_printf(
-			"DMA Timeout!\r\n"
-			"	S2MM_DMACR:	0x%08X\r\n"
-			"	S2MM_DMASR:	0x%08X\r\n"
-			"	S2MM_DA:	0x%08X\r\n"
-			"	S2MM_LEN:	0x%08X\r\n"
-			"	active_buf:	%d\r\n"
-			"	ready_buf:	%d\r\n"
-			"	dma_error:	0x%08X\r\n"
-			"	hit_count:	%d\r\n",
-			dmacr,
-			dmasr,
-			da_low,
-			len,
-			g_active_buf,
-			g_ready_buf,
-			(unsigned)g_dma_error,
-			isr_hit_count);
-
-		xil_printf("DMA buffer address: 0x%08lx\r\n",
+		ADC_HW_LOG("DMA Timeout!\r\n");
+		ADC_HW_LOG("DMA buffer address: 0x%08lx\r\n",
 		           (unsigned long)(UINTPTR)&g_adc_buf[0][0]);
+		ADC_HW_LOG("\tS2MM_DMACR:\t0x%08" PRIX32 "\r\n", dmacr);
+		ADC_HW_LOG("\tS2MM_DMASR:\t0x%08" PRIX32 "\r\n", dmasr);
+		ADC_HW_LOG("\tS2MM_DA:\t0x%08" PRIX32 "\r\n", da_low);
+		ADC_HW_LOG("\tS2MM_LEN:\t0x%08" PRIX32 "\r\n", len);
+		ADC_HW_LOG("\tactive_buf:\t%d\r\n", g_active_buf);
+		ADC_HW_LOG("\tready_buf:\t%d\r\n", g_ready_buf);
+		ADC_HW_LOG("\tdma_error:\t0x%08X\r\n", (unsigned)g_dma_error);
+		ADC_HW_LOG("\thit_count:\t%" PRIu32 "\r\n", isr_hit_count);
 
-		if (dma_restart() != XST_SUCCESS) {
-			xil_printf("DMA recovery failed\r\n");
+	    ADC_HW_LOG("DMA: resetting S2MM...\r\n");
+		if (adc_hw_start_stream() != XST_SUCCESS) {
+			ADC_HW_LOG("DMA: Recovery failed\r\n");
 		}
+		ADC_HW_LOG("DMA: resetting S2MM completed\r\n");
 
+		return 0;
+	}
+
+    if (g_abort_read) {
+		g_abort_read = false;
 		return 0;
 	}
 
 	int idx = g_ready_buf;
 
 	if (idx < 0 || idx >= ADC_NUM_BUFS) {
-		xil_printf(
+		ADC_HW_LOG(
 			"DMA: invalid ready buffer index %d\r\n",
 			idx);
 

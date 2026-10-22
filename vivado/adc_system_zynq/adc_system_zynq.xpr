@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="61" Path="C:/thesis_project/vivado/adc_system_zynq/adc_system_zynq.xpr">
+<Project Version="7" Minor="61" Path="C:/adc_system/vivado/adc_system_zynq/adc_system_zynq.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="16458cec4a5742db9bb8a273007a4417"/>
@@ -92,7 +92,7 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sources_1/new/blinky_block.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/sources_1/new/blinky_block.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/blinky_block.v"/>
           <Attr Name="ImportTime" Val="1784655110"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -101,7 +101,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/gpio_router.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/sources_1/new/gpio_router.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/gpio_router.v"/>
           <Attr Name="ImportTime" Val="1790186743"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -110,7 +110,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/adc_controller.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/sources_1/new/adc_controller.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/adc_controller.v"/>
           <Attr Name="ImportTime" Val="1791400474"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -119,7 +119,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/adc_stream_manager.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/sources_1/new/adc_stream_manager.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/adc_stream_manager.v"/>
           <Attr Name="ImportTime" Val="1791400553"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -151,7 +151,7 @@
       <Filter Type="Constrs"/>
       <File Path="$PSRCDIR/constrs_1/new/led_counter.xdc">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/constrs_1/new/led_counter.xdc"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/constrs_1/new/led_counter.xdc"/>
           <Attr Name="ImportTime" Val="1788470989"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -165,7 +165,7 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/new/tb_top.sv">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/sim_1/new/tb_top.sv"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sim_1/new/tb_top.sv"/>
           <Attr Name="ImportTime" Val="1791400592"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -190,7 +190,7 @@
       <Filter Type="Utils"/>
       <File Path="$PSRCDIR/utils_1/imports/synth_1/blinky_block.dcp">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/utils_1/imports/synth_1/blinky_block.dcp"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/utils_1/imports/synth_1/blinky_block.dcp"/>
           <Attr Name="ImportTime" Val="1791487891"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -223,7 +223,7 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="19">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z020clg484-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/blinky_block.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/utils_1/imports/synth_1">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z020clg484-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/blinky_block.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PPRDIR/../../adc_blinky/adc_blinky.srcs/utils_1/imports/synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
@@ -233,7 +233,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="synth_1_copy_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z020clg484-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/blinky_block.dcp" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/utils_1/imports/synth_1_copy_1">
+    <Run Id="synth_1_copy_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z020clg484-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/blinky_block.dcp" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PPRDIR/../../adc_blinky/adc_blinky.srcs/utils_1/imports/synth_1_copy_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
@@ -250,7 +250,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg484-2" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/utils_1/imports/impl_1" AutoRQSDir="$PPRDIR/../../../adc_system/adc_blinky/adc_blinky.srcs/utils_1/imports/impl_1">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg484-2" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../adc_blinky/adc_blinky.srcs/utils_1/imports/impl_1" AutoRQSDir="$PPRDIR/../../adc_blinky/adc_blinky.srcs/utils_1/imports/impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
