@@ -1,0 +1,18 @@
+# Doxygen configuration for the Python tools.  Run "doxygen" in the python/ folder;
+# HTML output goes to python/docs/html.  The sources use doxygen-style docstrings ("""! ...).
+PROJECT_NAME           = "ADC host tools"
+PROJECT_BRIEF          = "Scope, capture, simulator and device console for the ADS127L14 / TE0720 ADC"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = adc_common adc_scope test_generator capture_data_app run_adc_scope.py
+FILE_PATTERNS          = *.py
+EXCLUDE_PATTERNS       = */old/* */captures/*
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+OPTIMIZE_OUTPUT_JAVA   = YES
+PYTHON_DOCSTRING       = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HAVE_DOT               = NO
+QUIET                  = YES

@@ -1,0 +1,15 @@
+# Virtual ADC device (adc_simulator.py)
+# Install:  python -m pip install -r requirements-simulator.txt
+# Python 3.9 or newer. Developed and smoke-tested with Python 3.12,
+# numpy 2.4, pyqtgraph 0.14, PySide6 6.12.
+
+# Needed always (generator, TCP stream server, HTTP control API)
+numpy>=1.24
+
+# Needed only for the window. With HEADLESS = True (or when importing the file as a
+# library) the two lines below are not required; the stream and API use only the
+# standard library plus numpy.
+pyqtgraph>=0.13.3
+# Qt binding: PySide6 is the tested one. PyQt5 also works (replace the line with PyQt5>=5.15).
+# PyQt6 is NOT supported by the current code (it uses short Qt enum names).
+PySide6>=6.5

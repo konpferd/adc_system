@@ -13,6 +13,8 @@
 #include "ads127l14_spi.h"
 #include "pga_spi.h"
 #include "sleep.h"
+#include "os_delay.h"
+#include "device_xadc.h"
 
 extern XScuGic xInterruptController;
 
@@ -23,9 +25,10 @@ void echo_application_thread(void *);
 void lwip_init();
 
 #define THREAD_STACKSIZE 1024
+#define STARTUP_SETTLE_US 10000   /* let the init log drain before the servers start */
 
 static struct netif server_netif;
-struct netif *echo_netif;
+struct console_init_report main_init_report;
 
 void print_ip(char *msg, ip_addr_t *ip)
 {
@@ -94,16 +97,15 @@ void network_thread(void *p)
 
     xil_printf("Initializing ADC DMA ...");
     init_res = adc_hw_init(&xInterruptController);
+    main_init_report.dma_init_res = init_res;
     if(init_res == XST_SUCCESS)
 		xil_printf(" Success\r\n");
 	else
-		for (;;) {
-			xil_printf("ADC DMA FATAL ERROR [ERR: %02X]\r\n", init_res);
-			vTaskDelay(pdMS_TO_TICKS(10000));
-		}
+		xil_printf("ADC DMA FATAL ERROR [ERR: %02X]\r\n", init_res);
 
     xil_printf("Initializing GPIO pins ...");
 	init_res = device_gpio_init();
+	main_init_report.gpio_init_res = init_res;
 	if(init_res == 0)
 		xil_printf(" Success\r\n");
 	else
@@ -111,19 +113,32 @@ void network_thread(void *p)
 
     xil_printf("Initializing ADS127l14 SPI communication...");
     init_res = ads127l14_spi_init();
+    main_init_report.ads127l14_init_res = init_res;
     if(init_res == 0)
     	xil_printf(" Success\r\n");
     else
     	xil_printf(" Fail [ERR: %02X]\r\n", init_res);
 
     xil_printf("Initializing PGA SPI communication...");
-        init_res = pga_spi_init();
-        if(init_res == 0)
-        	xil_printf(" Success\r\n");
-        else
-        	xil_printf(" Fail [ERR: %02X]\r\n", init_res);
+	init_res = pga_spi_init();
+	main_init_report.pga_init_res = init_res;
+	if(init_res == 0)
+		xil_printf(" Success\r\n");
+	else
+		xil_printf(" Fail [ERR: %02X]\r\n", init_res);
 
-    ads127114_spi_system_config();
+	xil_printf("Initializing XADC system...");
+	init_res = device_xadc_init();
+	main_init_report.xadc_init_res = init_res;
+	if(init_res == 0)
+		xil_printf(" Success\r\n");
+	else
+		xil_printf(" Fail [ERR: %02X]\r\n", init_res);
+
+	init_res = ads127l14_spi_system_config();
+	main_init_report.ads127l14_config_res = init_res;
+	if(init_res != 0)
+			xil_printf("ADC configuration Fail [ERR: %d]\r\n", init_res);
 
     xil_printf("\r\n");
     xil_printf("%20s %6s %s\r\n", "Server", "Port", "Connect With..");
@@ -134,16 +149,18 @@ void network_thread(void *p)
 	xil_printf("Console server        : port %d\r\n", CONSOLE_PORT);
 	xil_printf("\r\n");
 
-	usleep(10000);
+	os_delay_us(STARTUP_SETTLE_US);
 
-	sys_thread_new("adc_stream", adc_stream_thread, 0,
-		THREAD_STACKSIZE * 4, DEFAULT_THREAD_PRIO + 2);
+	if (main_init_report.dma_init_res == XST_SUCCESS){
+		sys_thread_new("adc_stream", adc_stream_thread, 0,
+			THREAD_STACKSIZE * 4, 3);
+	}
 
 	sys_thread_new("console", console_thread, 0,
-		THREAD_STACKSIZE * 1, DEFAULT_THREAD_PRIO + 1);
+		THREAD_STACKSIZE * 2, 2);
 
 	sys_thread_new("eth_led_stat", eth_led_status_thread, 0,
-		THREAD_STACKSIZE / 2, DEFAULT_THREAD_PRIO);
+		THREAD_STACKSIZE, 1);
 
 	vTaskDelete(NULL);
     return;
@@ -156,7 +173,7 @@ int main_thread()
 
     /* any thread using lwIP should be created using sys_thread_new */
     sys_thread_new("NW_THRD", network_thread, NULL,
-		THREAD_STACKSIZE,
+		THREAD_STACKSIZE * 2,
             DEFAULT_THREAD_PRIO);
 
     vTaskDelete(NULL);

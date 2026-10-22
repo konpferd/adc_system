@@ -3,6 +3,4 @@
 
 void eth_led_status_thread(void *p);
 
-void eth_led_status_note_activity(void);
-
 #endif	/* LED_STATUS_H */
