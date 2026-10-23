@@ -7,9 +7,9 @@
 #define ADC_NUM_CHANNELS 			4
 #define ADC_MAX_SAMPLE_RATE_HZ		1365300
 #define ADC_ENTRY_SIZE				16
-#define ADC_MAX_WORDS_PER_BATCH		1024
+#define ADC_MAX_WORDS_PER_BATCH		4095
 
-#define ADC_WORDS_PER_BATCH      	512		// System default
+#define ADC_WORDS_PER_BATCH      	2048		// System default
 
 #define ADC_DMA_BUF_BASE_ADDR   0xFFFF0000u
 

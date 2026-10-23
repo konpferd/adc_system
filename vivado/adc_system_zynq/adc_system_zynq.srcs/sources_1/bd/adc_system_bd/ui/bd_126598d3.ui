@@ -1,94 +1,87 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.648694",
-   "Default View_TopLeft":"1414,268",
+   "Default View_ScaleFactor":"1.15567",
+   "Default View_TopLeft":"2066,441",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 9 -x 2880 -y 450 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 9 -x 2880 -y 480 -defaultsOSRD
-preplace port port-id_debug0_tx -pg 1 -lvl 9 -x 2880 -y 510 -defaultsOSRD
-preplace port port-id_debug0_rx -pg 1 -lvl 0 -x 0 -y 420 -defaultsOSRD
-preplace port port-id_debug1_tx -pg 1 -lvl 9 -x 2880 -y 570 -defaultsOSRD
-preplace port port-id_debug1_rx -pg 1 -lvl 0 -x 0 -y 450 -defaultsOSRD
-preplace port port-id_analog_pwr_en -pg 1 -lvl 9 -x 2880 -y 80 -defaultsOSRD
-preplace port port-id_adc_sclk -pg 1 -lvl 9 -x 2880 -y 620 -defaultsOSRD
-preplace port port-id_adc_sdi -pg 1 -lvl 9 -x 2880 -y 650 -defaultsOSRD
-preplace port port-id_adc_sdo -pg 1 -lvl 0 -x 0 -y 490 -defaultsOSRD
-preplace port port-id_adc_cs -pg 1 -lvl 9 -x 2880 -y 690 -defaultsOSRD
-preplace port port-id_pga_sclk -pg 1 -lvl 9 -x 2880 -y 720 -defaultsOSRD
-preplace port port-id_pga_sync -pg 1 -lvl 9 -x 2880 -y 950 -defaultsOSRD
-preplace port port-id_adc_clkin -pg 1 -lvl 9 -x 2880 -y 260 -defaultsOSRD
-preplace port port-id_adc_start -pg 1 -lvl 9 -x 2880 -y 170 -defaultsOSRD
-preplace port port-id_adc_r -pg 1 -lvl 9 -x 2880 -y 200 -defaultsOSRD
-preplace port port-id_adc_error -pg 1 -lvl 0 -x 0 -y 280 -defaultsOSRD
-preplace port port-id_adc_fsync -pg 1 -lvl 0 -x 0 -y 250 -defaultsOSRD
-preplace port port-id_adc_dclk -pg 1 -lvl 0 -x 0 -y 190 -defaultsOSRD
-preplace port port-id_pga_sdi -pg 1 -lvl 0 -x 0 -y 770 -defaultsOSRD
-preplace port port-id_pga_sdo -pg 1 -lvl 9 -x 2880 -y 750 -defaultsOSRD
-preplace portBus led -pg 1 -lvl 9 -x 2880 -y 1010 -defaultsOSRD
-preplace portBus eth_led -pg 1 -lvl 9 -x 2880 -y 50 -defaultsOSRD
-preplace portBus ch_disable -pg 1 -lvl 9 -x 2880 -y 110 -defaultsOSRD
-preplace portBus adc_io -pg 1 -lvl 9 -x 2880 -y 230 -defaultsOSRD
-preplace portBus pga_r -pg 1 -lvl 9 -x 2880 -y 140 -defaultsOSRD
-preplace portBus adc_dout -pg 1 -lvl 0 -x 0 -y 220 -defaultsOSRD
-preplace inst blinky_block_0 -pg 1 -lvl 8 -x 2670 -y 1010 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2240 -y 620 -defaultsOSRD
-preplace inst axis_dwidth_converter_0 -pg 1 -lvl 4 -x 1240 -y 850 -defaultsOSRD
-preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -x 1240 -y 630 -defaultsOSRD
-preplace inst smartconnect_0 -pg 1 -lvl 6 -x 1880 -y 600 -defaultsOSRD
-preplace inst rst_ps7_0_100M -pg 1 -lvl 1 -x 190 -y 600 -defaultsOSRD
-preplace inst gpio_router_0 -pg 1 -lvl 8 -x 2670 -y 130 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 5 -x 1570 -y 870 -defaultsOSRD
-preplace inst adc_controller_0 -pg 1 -lvl 2 -x 570 -y 270 -defaultsOSRD
-preplace inst adc_stream_manager_0 -pg 1 -lvl 3 -x 940 -y 400 -defaultsOSRD
-preplace inst axi_dma_0 -pg 1 -lvl 5 -x 1570 -y 660 -defaultsOSRD
-preplace netloc SPI0_MISO_I_0_1 1 0 8 NJ 490 NJ 490 NJ 490 1060J 480 NJ 480 NJ 480 2020J 300 2460
-preplace netloc SPI1_MISO_I_0_2 1 0 8 NJ 770 NJ 770 NJ 770 NJ 770 NJ 770 NJ 770 2010J 930 2460
-preplace netloc UART0_RX_0_1 1 0 8 NJ 420 NJ 420 740J 500 1070J 490 NJ 490 NJ 490 2030J 310 2450
-preplace netloc UART1_RX_0_1 1 0 8 NJ 450 NJ 450 750J 270 NJ 270 NJ 270 NJ 270 NJ 270 2470
-preplace netloc adc_controller_0_adc_clkin 1 2 7 NJ 260 NJ 260 NJ 260 NJ 260 NJ 260 NJ 260 NJ
-preplace netloc adc_controller_0_adc_error_out 1 2 6 740 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ
-preplace netloc adc_dclk_1 1 0 2 NJ 190 390J
-preplace netloc adc_dout_0_1 1 0 2 NJ 220 NJ
-preplace netloc adc_error_0_1 1 0 2 20J 260 NJ
-preplace netloc adc_fsync_1 1 0 2 20J 240 NJ
-preplace netloc adc_io 1 8 1 2830J 200n
-preplace netloc axi_dma_0_s2mm_introut 1 5 2 NJ 680 2030
-preplace netloc axi_gpio_0_gpio_io_o 1 2 4 800 960 NJ 960 NJ 960 1740
-preplace netloc blinky_block_0_led 1 8 1 NJ 1010
-preplace netloc gpio_router_0_adc_r 1 1 8 390 410 760J 280 NJ 280 NJ 280 NJ 280 NJ 280 NJ 280 2840
-preplace netloc gpio_router_0_adc_start 1 1 8 380 400 770J 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 2850
-preplace netloc gpio_router_0_analog_pwr_en 1 8 1 2850J 80n
-preplace netloc gpio_router_0_ch_disable 1 8 1 2830J 110n
-preplace netloc gpio_router_0_eth_led 1 8 1 2830J 50n
-preplace netloc gpio_router_0_pga_r 1 8 1 NJ 140
-preplace netloc gpio_router_0_pin_i 1 7 2 N 390 2820
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 8 20 430 360 430 780 510 1070 930 1380 550 1740 690 2020 940 2480
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 20 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 2450
-preplace netloc processing_system7_0_GPIO_O 1 7 1 2480 100n
-preplace netloc processing_system7_0_GPIO_T 1 7 1 2490 120n
-preplace netloc processing_system7_0_SPI0_MOSI_O 1 7 2 NJ 650 NJ
-preplace netloc processing_system7_0_SPI0_SCLK_O 1 7 2 2480J 620 NJ
-preplace netloc processing_system7_0_SPI0_SS_O 1 7 2 NJ 690 NJ
-preplace netloc processing_system7_0_SPI1_MOSI_O 1 7 2 N 750 NJ
-preplace netloc processing_system7_0_SPI1_SCLK_O 1 7 2 2470 720 NJ
-preplace netloc processing_system7_0_SPI1_SS_O 1 7 2 2490 950 NJ
-preplace netloc processing_system7_0_UART0_TX 1 7 2 NJ 510 NJ
-preplace netloc processing_system7_0_UART1_TX 1 7 2 NJ 570 NJ
-preplace netloc rst_ps7_0_100M_peripheral_aresetn1 1 1 5 370 440 790 520 1060 940 1410 560 1730
-preplace netloc adc_controller_0_m_axis 1 2 1 780 240n
-preplace netloc adc_stream_manager_0_m_axis 1 3 1 1080 400n
-preplace netloc axi_dma_0_M_AXI_S2MM 1 5 1 1750 580n
-preplace netloc axis_dwidth_converter_0_M_AXIS 1 4 1 1400 640n
-preplace netloc processing_system7_0_DDR 1 7 2 NJ 450 NJ
-preplace netloc processing_system7_0_FIXED_IO 1 7 2 NJ 470 2830J
-preplace netloc processing_system7_0_M_AXI_GP0 1 3 5 1090 970 NJ 970 NJ 970 NJ 970 2470
-preplace netloc ps7_0_axi_periph_M00_AXI 1 4 1 N 620
-preplace netloc ps7_0_axi_periph_M01_AXI 1 4 1 1390 640n
-preplace netloc smartconnect_0_M00_AXI 1 6 1 N 600
-levelinfo -pg 1 0 190 570 940 1240 1570 1880 2240 2670 2880
-pagesize -pg 1 -db -bbox -sgen -140 0 3030 1070
+preplace port DDR -pg 1 -lvl 8 -x 2560 -y 140 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 2560 -y 170 -defaultsOSRD
+preplace port port-id_analog_pwr_en -pg 1 -lvl 8 -x 2560 -y 840 -defaultsOSRD
+preplace port port-id_adc_sclk -pg 1 -lvl 8 -x 2560 -y 230 -defaultsOSRD
+preplace port port-id_adc_sdi -pg 1 -lvl 8 -x 2560 -y 260 -defaultsOSRD
+preplace port port-id_adc_sdo -pg 1 -lvl 0 -x -10 -y 550 -defaultsOSRD
+preplace port port-id_adc_cs -pg 1 -lvl 8 -x 2560 -y 300 -defaultsOSRD
+preplace port port-id_pga_sclk -pg 1 -lvl 8 -x 2560 -y 330 -defaultsOSRD
+preplace port port-id_pga_sync -pg 1 -lvl 8 -x 2560 -y 400 -defaultsOSRD
+preplace port port-id_adc_clkin -pg 1 -lvl 8 -x 2560 -y 760 -defaultsOSRD
+preplace port port-id_adc_start -pg 1 -lvl 8 -x 2560 -y 930 -defaultsOSRD
+preplace port port-id_adc_r -pg 1 -lvl 8 -x 2560 -y 960 -defaultsOSRD
+preplace port port-id_adc_error -pg 1 -lvl 0 -x -10 -y 870 -defaultsOSRD
+preplace port port-id_adc_fsync -pg 1 -lvl 0 -x -10 -y 840 -defaultsOSRD
+preplace port port-id_adc_dclk -pg 1 -lvl 0 -x -10 -y 780 -defaultsOSRD
+preplace port port-id_pga_sdi -pg 1 -lvl 0 -x -10 -y 580 -defaultsOSRD
+preplace port port-id_pga_sdo -pg 1 -lvl 8 -x 2560 -y 360 -defaultsOSRD
+preplace portBus led -pg 1 -lvl 8 -x 2560 -y 1020 -defaultsOSRD
+preplace portBus eth_led -pg 1 -lvl 8 -x 2560 -y 810 -defaultsOSRD
+preplace portBus ch_disable -pg 1 -lvl 8 -x 2560 -y 870 -defaultsOSRD
+preplace portBus adc_io -pg 1 -lvl 8 -x 2560 -y 990 -defaultsOSRD
+preplace portBus pga_r -pg 1 -lvl 8 -x 2560 -y 900 -defaultsOSRD
+preplace portBus adc_dout -pg 1 -lvl 0 -x -10 -y 810 -defaultsOSRD
+preplace portBus mic_sense -pg 1 -lvl 0 -x -10 -y 990 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2240 -y 270 -defaultsOSRD
+preplace inst axis_dwidth_converter_0 -pg 1 -lvl 4 -x 1240 -y 640 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -x 1240 -y 410 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 6 -x 1880 -y 250 -defaultsOSRD
+preplace inst rst_ps7_0_100M -pg 1 -lvl 1 -x 200 -y 700 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 5 -x 1570 -y 440 -defaultsOSRD
+preplace inst adc_controller_0 -pg 1 -lvl 2 -x 590 -y 860 -defaultsOSRD
+preplace inst adc_stream_manager_0 -pg 1 -lvl 3 -x 920 -y 760 -defaultsOSRD
+preplace inst axi_dma_0 -pg 1 -lvl 5 -x 1570 -y 250 -defaultsOSRD
+preplace inst gpio_router_0 -pg 1 -lvl 7 -x 2240 -y 900 -defaultsOSRD
+preplace netloc SPI0_MISO_I_0_1 1 0 8 NJ 550 NJ 550 NJ 550 1080J 720 NJ 720 NJ 720 NJ 720 2490
+preplace netloc SPI1_MISO_I_0_2 1 0 8 10J 560 NJ 560 NJ 560 NJ 560 NJ 560 NJ 560 NJ 560 2470
+preplace netloc adc_controller_0_adc_clkin 1 2 6 760J 670 1050J 760 NJ 760 NJ 760 NJ 760 NJ
+preplace netloc adc_controller_0_adc_error_out 1 2 5 NJ 870 NJ 870 NJ 870 NJ 870 2010
+preplace netloc adc_dclk_1 1 0 2 10J 590 400J
+preplace netloc adc_dout_0_1 1 0 2 NJ 810 NJ
+preplace netloc adc_error_0_1 1 0 2 20J 850 NJ
+preplace netloc adc_fsync_1 1 0 2 20J 830 NJ
+preplace netloc adc_io 1 7 1 2450J 960n
+preplace netloc axi_dma_0_s2mm_introut 1 5 2 1740 330 2020J
+preplace netloc axi_gpio_0_gpio_io_o 1 2 4 800 140 NJ 140 NJ 140 1730
+preplace netloc gpio_router_0_adc_r 1 1 7 400 1040 NJ 1040 NJ 1040 NJ 1040 NJ 1040 NJ 1040 2490
+preplace netloc gpio_router_0_adc_start 1 1 7 390 1050 NJ 1050 NJ 1050 NJ 1050 NJ 1050 NJ 1050 2520
+preplace netloc gpio_router_0_analog_pwr_en 1 7 1 2540J 840n
+preplace netloc gpio_router_0_ch_disable 1 7 1 2500J 870n
+preplace netloc gpio_router_0_eth_led 1 7 1 2530J 810n
+preplace netloc gpio_router_0_pga_r 1 7 1 NJ 900
+preplace netloc gpio_router_0_pin_i 1 7 1 2520 80n
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 8 30 600 370 640 790 640 1050 260 1400 150 1740 170 2030 540 2450
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 20 580 NJ 580 NJ 580 1060J 730 NJ 730 NJ 730 NJ 730 2480
+preplace netloc processing_system7_0_GPIO_O 1 6 2 2020 570 2510
+preplace netloc processing_system7_0_GPIO_T 1 6 2 2030 580 2500
+preplace netloc processing_system7_0_SPI0_MOSI_O 1 7 1 NJ 260
+preplace netloc processing_system7_0_SPI0_SCLK_O 1 7 1 2530J 230n
+preplace netloc processing_system7_0_SPI0_SS_O 1 7 1 NJ 300
+preplace netloc processing_system7_0_SPI1_MOSI_O 1 7 1 NJ 360
+preplace netloc processing_system7_0_SPI1_SCLK_O 1 7 1 2530J 330n
+preplace netloc processing_system7_0_SPI1_SS_O 1 7 1 NJ 400
+preplace netloc rst_ps7_0_100M_peripheral_aresetn1 1 1 5 380 730 770 660 1070 270 1380 350 1750J
+preplace netloc mic_conected_0_1 1 0 7 NJ 990 NJ 990 780J 910 NJ 910 NJ 910 NJ 910 NJ
+preplace netloc gpio_router_0_user_led 1 7 1 2460J 980n
+preplace netloc adc_controller_0_m_axis 1 2 1 780 730n
+preplace netloc adc_stream_manager_0_m_axis 1 3 1 1040 620n
+preplace netloc axi_dma_0_M_AXI_S2MM 1 5 1 N 230
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 4 1 1410 230n
+preplace netloc processing_system7_0_DDR 1 7 1 NJ 140
+preplace netloc processing_system7_0_FIXED_IO 1 7 1 2530J 160n
+preplace netloc processing_system7_0_M_AXI_GP0 1 3 5 1090 550 NJ 550 NJ 550 NJ 550 2460
+preplace netloc ps7_0_axi_periph_M00_AXI 1 4 1 1390 210n
+preplace netloc ps7_0_axi_periph_M01_AXI 1 4 1 N 420
+preplace netloc smartconnect_0_M00_AXI 1 6 1 N 250
+levelinfo -pg 1 -10 200 590 920 1240 1570 1880 2240 2560
+pagesize -pg 1 -db -bbox -sgen -150 0 2710 1060
 "
 }
 0

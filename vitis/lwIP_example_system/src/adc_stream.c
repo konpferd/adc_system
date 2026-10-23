@@ -22,7 +22,7 @@
  * 2 	- TCP console only
  * >=3 	- TCP + UART
  */
-#define STREAM_LOG_SETTING        3
+#define STREAM_LOG_SETTING        2
 
 #if STREAM_LOG_SETTING <= 0
 #define STREAM_LOG(...)             ((void)0)

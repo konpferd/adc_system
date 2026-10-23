@@ -1,16 +1,16 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x3B7B3DB75C84B8C8",
+      "boundary_crc": "0xE997699320C35EFF",
       "device": "xc7z020clg484-2",
       "gen_directory": "../../../../adc_system_zynq.gen/sources_1/bd/adc_system_bd",
       "name": "adc_system_bd",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "None",
-      "tool_version": "2022.2"
+      "tool_version": "2022.2",
+      "validated": "true"
     },
     "design_tree": {
-      "blinky_block_0": "",
       "processing_system7_0": "",
       "axis_dwidth_converter_0": "",
       "ps7_0_axi_periph": {
@@ -23,11 +23,11 @@
       },
       "smartconnect_0": "",
       "rst_ps7_0_100M": "",
-      "gpio_router_0": "",
       "axi_gpio_0": "",
       "adc_controller_0": "",
       "adc_stream_manager_0": "",
-      "axi_dma_0": ""
+      "axi_dma_0": "",
+      "gpio_router_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -292,18 +292,6 @@
         "left": "3",
         "right": "0"
       },
-      "debug0_tx": {
-        "direction": "O"
-      },
-      "debug0_rx": {
-        "direction": "I"
-      },
-      "debug1_tx": {
-        "direction": "O"
-      },
-      "debug1_rx": {
-        "direction": "I"
-      },
       "eth_led": {
         "direction": "O",
         "left": "3",
@@ -347,7 +335,29 @@
       },
       "adc_clkin": {
         "type": "clk",
-        "direction": "O"
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "adc_system_bd_adc_controller_0_0_adc_clkin",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
       },
       "adc_start": {
         "direction": "O"
@@ -374,41 +384,14 @@
       },
       "pga_sdo": {
         "direction": "O"
+      },
+      "mic_sense": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
       }
     },
     "components": {
-      "blinky_block_0": {
-        "vlnv": "xilinx.com:module_ref:blinky_block:1.0",
-        "xci_name": "adc_system_bd_blinky_block_0_0",
-        "xci_path": "ip\\adc_system_bd_blinky_block_0_0\\adc_system_bd_blinky_block_0_0.xci",
-        "inst_hier_path": "blinky_block_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "blinky_block",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "user_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "adc_system_bd_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
-              }
-            }
-          },
-          "led": {
-            "direction": "O",
-            "left": "3",
-            "right": "0"
-          }
-        }
-      },
       "processing_system7_0": {
         "vlnv": "xilinx.com:ip:processing_system7:5.5",
         "xci_name": "adc_system_bd_processing_system7_0_0",
@@ -2706,81 +2689,6 @@
         "xci_path": "ip\\adc_system_bd_rst_ps7_0_100M_0\\adc_system_bd_rst_ps7_0_100M_0.xci",
         "inst_hier_path": "rst_ps7_0_100M"
       },
-      "gpio_router_0": {
-        "vlnv": "xilinx.com:module_ref:gpio_router:1.0",
-        "xci_name": "adc_system_bd_gpio_router_0_0",
-        "xci_path": "ip\\adc_system_bd_gpio_router_0_0\\adc_system_bd_gpio_router_0_0.xci",
-        "inst_hier_path": "gpio_router_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "gpio_router",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "pin_o": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "pin_t": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "pin_i": {
-            "direction": "O",
-            "left": "63",
-            "right": "0"
-          },
-          "eth_led": {
-            "direction": "O",
-            "left": "3",
-            "right": "0"
-          },
-          "analog_pwr_en": {
-            "direction": "O"
-          },
-          "ch_disable": {
-            "direction": "O",
-            "left": "3",
-            "right": "0"
-          },
-          "pga_r": {
-            "direction": "O",
-            "left": "1",
-            "right": "0"
-          },
-          "adc_start": {
-            "direction": "O"
-          },
-          "adc_r": {
-            "direction": "O",
-            "parameters": {
-              "PortType": {
-                "value": "undef",
-                "value_src": "ip_prop"
-              },
-              "PortType.PROP_SRC": {
-                "value": "false",
-                "value_src": "ip_prop"
-              }
-            }
-          },
-          "mic_conected": {
-            "direction": "I",
-            "left": "3",
-            "right": "0"
-          },
-          "adc_error": {
-            "direction": "I"
-          },
-          "adc_io": {
-            "direction": "IO",
-            "left": "5",
-            "right": "0"
-          }
-        }
-      },
       "axi_gpio_0": {
         "vlnv": "xilinx.com:ip:axi_gpio:2.0",
         "xci_name": "adc_system_bd_axi_gpio_0_0",
@@ -3208,6 +3116,76 @@
             }
           }
         }
+      },
+      "gpio_router_0": {
+        "vlnv": "xilinx.com:module_ref:gpio_router:1.0",
+        "xci_name": "adc_system_bd_gpio_router_0_0",
+        "xci_path": "ip\\adc_system_bd_gpio_router_0_0\\adc_system_bd_gpio_router_0_0.xci",
+        "inst_hier_path": "gpio_router_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "gpio_router",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "pin_o": {
+            "direction": "I",
+            "left": "63",
+            "right": "0"
+          },
+          "pin_t": {
+            "direction": "I",
+            "left": "63",
+            "right": "0"
+          },
+          "pin_i": {
+            "direction": "O",
+            "left": "63",
+            "right": "0"
+          },
+          "eth_led": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "analog_pwr_en": {
+            "direction": "O"
+          },
+          "ch_disable": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "pga_r": {
+            "direction": "O",
+            "left": "1",
+            "right": "0"
+          },
+          "adc_start": {
+            "direction": "O"
+          },
+          "adc_r": {
+            "direction": "O"
+          },
+          "mic_conected": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          },
+          "adc_error": {
+            "direction": "I"
+          },
+          "adc_io": {
+            "direction": "IO",
+            "left": "5",
+            "right": "0"
+          },
+          "user_led": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -3285,18 +3263,6 @@
           "processing_system7_0/SPI1_MISO_I"
         ]
       },
-      "UART0_RX_0_1": {
-        "ports": [
-          "debug0_rx",
-          "processing_system7_0/UART0_RX"
-        ]
-      },
-      "UART1_RX_0_1": {
-        "ports": [
-          "debug1_rx",
-          "processing_system7_0/UART1_RX"
-        ]
-      },
       "adc_controller_0_adc_clkin": {
         "ports": [
           "adc_controller_0/adc_clkin",
@@ -3351,12 +3317,6 @@
           "adc_stream_manager_0/ctrl_in"
         ]
       },
-      "blinky_block_0_led": {
-        "ports": [
-          "blinky_block_0/led",
-          "led"
-        ]
-      },
       "gpio_router_0_adc_r": {
         "ports": [
           "gpio_router_0/adc_r",
@@ -3401,10 +3361,21 @@
           "processing_system7_0/GPIO_I"
         ]
       },
+      "gpio_router_0_user_led": {
+        "ports": [
+          "gpio_router_0/user_led",
+          "led"
+        ]
+      },
+      "mic_conected_0_1": {
+        "ports": [
+          "mic_sense",
+          "gpio_router_0/mic_conected"
+        ]
+      },
       "processing_system7_0_FCLK_CLK0": {
         "ports": [
           "processing_system7_0/FCLK_CLK0",
-          "blinky_block_0/clk",
           "ps7_0_axi_periph/S00_ACLK",
           "ps7_0_axi_periph/M00_ACLK",
           "ps7_0_axi_periph/ACLK",
@@ -3473,18 +3444,6 @@
         "ports": [
           "processing_system7_0/SPI1_SS_O",
           "pga_sync"
-        ]
-      },
-      "processing_system7_0_UART0_TX": {
-        "ports": [
-          "processing_system7_0/UART0_TX",
-          "debug0_tx"
-        ]
-      },
-      "processing_system7_0_UART1_TX": {
-        "ports": [
-          "processing_system7_0/UART1_TX",
-          "debug1_tx"
         ]
       },
       "rst_ps7_0_100M_peripheral_aresetn1": {

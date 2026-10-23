@@ -16,7 +16,7 @@
  * 2 	- TCP console only
  * >=3 	- TCP + UART
  */
-#define PGA_LOG_SETTING        3
+#define PGA_LOG_SETTING        2
 
 #if PGA_LOG_SETTING <= 0
 #define PGA_LOG(...)             ((void)0)

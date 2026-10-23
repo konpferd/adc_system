@@ -90,24 +90,6 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sources_1/new/blinky_block.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/blinky_block.v"/>
-          <Attr Name="ImportTime" Val="1784655110"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/gpio_router.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/gpio_router.v"/>
-          <Attr Name="ImportTime" Val="1790186743"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/new/adc_controller.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/adc_controller.v"/>
@@ -121,6 +103,15 @@
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/adc_stream_manager.v"/>
           <Attr Name="ImportTime" Val="1791400553"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/gpio_router.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../adc_blinky/adc_blinky.srcs/sources_1/new/gpio_router.v"/>
+          <Attr Name="ImportTime" Val="1790186743"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

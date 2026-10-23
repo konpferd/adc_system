@@ -1,0 +1,7 @@
+/* BOOT.BIN for QSPI boot: FSBL -> bitstream -> application */
+the_ROM_image:
+{
+  [bootloader] ../vitis/system_wrapper_lwIP/export/system_wrapper_lwIP/sw/system_wrapper_lwIP/boot/fsbl.elf
+  ../vitis/system_wrapper_lwIP/export/system_wrapper_lwIP/hw/adc_system_bd_wrapper.bit
+  ../vitis/lwIP_example_system/Debug/lwIP_example_system.elf
+}
