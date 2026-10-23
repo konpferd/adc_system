@@ -58,6 +58,12 @@ void eth_led_status_thread(void *p)
 
         if (tx_hold) tx_hold--;
         if (rx_hold) rx_hold--;
+
+        device_gpio_write_pin(USER_LED_0_PIN, device_gpio_read_pin(MIC_IN_0_PIN));
+        device_gpio_write_pin(USER_LED_1_PIN, device_gpio_read_pin(MIC_IN_1_PIN));
+        device_gpio_write_pin(USER_LED_2_PIN, device_gpio_read_pin(MIC_IN_2_PIN));
+        device_gpio_write_pin(USER_LED_3_PIN, device_gpio_read_pin(MIC_IN_3_PIN));
+
         vTaskDelay(pdMS_TO_TICKS(LED_POLL_MS));
     }
 }

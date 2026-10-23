@@ -49,7 +49,8 @@
         "adc_r": [ { "direction": "out" } ],
         "mic_conected": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
         "adc_error": [ { "direction": "in" } ],
-        "adc_io": [ { "direction": "inout", "size_left": "5", "size_right": "0" } ]
+        "adc_io": [ { "direction": "inout", "size_left": "5", "size_right": "0" } ],
+        "user_led": [ { "direction": "out", "size_left": "3", "size_right": "0" } ]
       }
     }
   }

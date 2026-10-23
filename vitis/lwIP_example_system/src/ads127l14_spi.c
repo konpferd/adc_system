@@ -16,7 +16,7 @@
  * 2 	- TCP console only
  * >=3 	- TCP + UART
  */
-#define ADS127L14_LOG_SETTING        3
+#define ADS127L14_LOG_SETTING        2
 
 #if ADS127L14_LOG_SETTING <= 0
 #define ADS_LOG(...)             ((void)0)

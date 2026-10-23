@@ -47,6 +47,15 @@
 #define MIC_IN_2_PIN	(EMIO_BASE_PIN + 21) /* EMIO21	| IN	: Sense MIC connected 2 */
 #define MIC_IN_3_PIN	(EMIO_BASE_PIN + 22) /* EMIO22	| IN	: Sense MIC connected 3 */
 
+// ADC error pin
+#define ADC_ERROR_PIN	(EMIO_BASE_PIN + 23) /* EMIO23	| IN	: Check the error state of ADC */
+
+// User LEDs
+#define USER_LED_0_PIN	(EMIO_BASE_PIN + 24) /* EMIO24	| OUT	: User LED 0 */
+#define USER_LED_1_PIN	(EMIO_BASE_PIN + 25) /* EMIO25	| OUT	: User LED 1 */
+#define USER_LED_2_PIN	(EMIO_BASE_PIN + 26) /* EMIO26	| OUT	: User LED 2 */
+#define USER_LED_3_PIN	(EMIO_BASE_PIN + 27) /* EMIO27	| OUT	: User LED 3 */
+
 int device_gpio_init(void);
 
 int device_gpio_write_pin(uint32_t pin, uint8_t state);

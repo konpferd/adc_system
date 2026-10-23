@@ -20,7 +20,7 @@
  * 2 	- TCP console only
  * >=3 	- TCP + UART
  */
-#define ADC_HW_LOG_SETTING        3
+#define ADC_HW_LOG_SETTING        2
 
 #if ADC_HW_LOG_SETTING <= 0
 #define ADC_HW_LOG(...)             ((void)0)

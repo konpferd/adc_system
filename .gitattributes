@@ -5,3 +5,4 @@
 *.dcp binary
 *.elf binary
 *.sh text eol=lf
+*.bat text eol=crlf

@@ -15,7 +15,9 @@ module gpio_router(
     input  wire [3:0] mic_conected,
     input  wire adc_error,
     
-    inout  wire [5:0] adc_io
+    inout  wire [5:0] adc_io,
+    
+    output wire [3:0] user_led
 );
 
     // ------------------------------------------------------------------------
@@ -28,6 +30,7 @@ module gpio_router(
     assign analog_pwr_en    = pin_o[16];
     assign adc_start        = pin_o[17];
     assign adc_r            = pin_o[18];
+    assign user_led         = pin_o[27:24];
     
     assign pin_i[22:19]     = mic_conected;
     assign pin_i[23]        = adc_error;

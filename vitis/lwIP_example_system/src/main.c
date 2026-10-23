@@ -95,14 +95,6 @@ void network_thread(void *p)
 
     int init_res;
 
-    xil_printf("Initializing ADC DMA ...");
-    init_res = adc_hw_init(&xInterruptController);
-    main_init_report.dma_init_res = init_res;
-    if(init_res == XST_SUCCESS)
-		xil_printf(" Success\r\n");
-	else
-		xil_printf("ADC DMA FATAL ERROR [ERR: %02X]\r\n", init_res);
-
     xil_printf("Initializing GPIO pins ...");
 	init_res = device_gpio_init();
 	main_init_report.gpio_init_res = init_res;
@@ -110,6 +102,18 @@ void network_thread(void *p)
 		xil_printf(" Success\r\n");
 	else
 		xil_printf(" Fail [ERR: %02X]\r\n", init_res);
+	device_gpio_write_pin(USER_LED_0_PIN, 1);
+	vTaskDelay(100);
+
+    xil_printf("Initializing ADC DMA ...");
+    init_res = adc_hw_init(&xInterruptController);
+    main_init_report.dma_init_res = init_res;
+    if(init_res == XST_SUCCESS)
+		xil_printf(" Success\r\n");
+	else
+		xil_printf("ADC DMA FATAL ERROR [ERR: %02X]\r\n", init_res);
+	device_gpio_write_pin(USER_LED_1_PIN, 1);
+	vTaskDelay(100);
 
     xil_printf("Initializing ADS127l14 SPI communication...");
     init_res = ads127l14_spi_init();
@@ -118,6 +122,8 @@ void network_thread(void *p)
     	xil_printf(" Success\r\n");
     else
     	xil_printf(" Fail [ERR: %02X]\r\n", init_res);
+    device_gpio_write_pin(USER_LED_2_PIN, 1);
+    vTaskDelay(100);
 
     xil_printf("Initializing PGA SPI communication...");
 	init_res = pga_spi_init();
@@ -126,6 +132,8 @@ void network_thread(void *p)
 		xil_printf(" Success\r\n");
 	else
 		xil_printf(" Fail [ERR: %02X]\r\n", init_res);
+	device_gpio_write_pin(USER_LED_3_PIN, 1);
+	vTaskDelay(100);
 
 	xil_printf("Initializing XADC system...");
 	init_res = device_xadc_init();

@@ -3,26 +3,12 @@
 ###############################################################
 
 # MIC SENSE PINS - Bank 35, VCCO = 3.3V
-#set_property PACKAGE_PIN F21 [get_ports {mic_sense[0]}]
-#set_property PACKAGE_PIN F22 [get_ports {mic_sense[1]}]
-#set_property PACKAGE_PIN C17 [get_ports {mic_sense[2]}]
-#set_property PACKAGE_PIN C18 [get_ports {mic_sense[3]}]
+set_property PACKAGE_PIN F21 [get_ports {mic_sense[0]}]
+set_property PACKAGE_PIN F22 [get_ports {mic_sense[1]}]
+set_property PACKAGE_PIN C17 [get_ports {mic_sense[2]}]
+set_property PACKAGE_PIN C18 [get_ports {mic_sense[3]}]
 
-#set_property IOSTANDARD LVCMOS33 [get_ports {mic_sense[*]}]
-
-set_property PACKAGE_PIN F21 [get_ports {debug0_tx}]
-set_property PACKAGE_PIN F22 [get_ports {debug0_rx}]
-
-set_property IOSTANDARD LVCMOS33 [get_ports {debug0_tx}]
-set_property IOSTANDARD LVCMOS33 [get_ports {debug0_rx}]
-set_property SLEW       SLOW     [get_ports {debug0_tx}]
-
-set_property PACKAGE_PIN C17 [get_ports {debug1_tx}]
-set_property PACKAGE_PIN C18 [get_ports {debug1_rx}]
-
-set_property IOSTANDARD LVCMOS33 [get_ports {debug1_tx}]
-set_property IOSTANDARD LVCMOS33 [get_ports {debug1_rx}]
-set_property SLEW       SLOW     [get_ports {debug1_tx}]
+set_property IOSTANDARD LVCMOS33 [get_ports {mic_sense[*]}]
 
 # USER LEDs - Bank 35, VCCO = 3.3V
 set_property PACKAGE_PIN A16 [get_ports {led[0]}]
