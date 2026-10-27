@@ -23,7 +23,8 @@ python/
 │   ├── device_state.py       device model built from console replies
 │   ├── gui/                  Qt widgets (main window, scope view, device panel)
 │   └── captures/             CSV captures are saved here
-├── capture_data_app/         adc_logger_fast.py (CLI logger), adc_plot_gui.py (CSV viewer)
+├── adc_cli_logger/           adc_logger_fast.py: command-line stream logger (raw + CSV)
+├── csv_plot/                 adc_plot_gui.py: capture CSV viewer (time domain, FFT, frame loss)
 ├── test_generator/           adc_simulator.py + device_emulator.py (virtual device)
 └── tests/test_backend.py     automated backend tests (no Qt needed)
 ```
@@ -48,6 +49,18 @@ python run_adc_scope.py --sim --sim-console --connect
 python run_adc_scope.py --device 192.168.1.10 --connect
 ```
 
+Command-line logger (writes `captures/adc_stream_raw.bin` and `captures/adc_stream_samples.csv`
+in the current folder; device address and limits are constants at the top of the file):
+```
+cd adc_cli_logger
+python adc_logger_fast.py
+```
+
+CSV viewer (scope captures or logger output):
+```
+python csv_plot/adc_plot_gui.py adc_scope/captures/adc_stream_samples_001.csv
+```
+
 Tests (start no GUI, use spare ports):
 ```
 python -m unittest discover -s tests -v
@@ -58,7 +71,7 @@ python -m unittest discover -s tests -v
 | Area | What it does |
 |---|---|
 | Target | *Simulator (localhost)* or *Device (TCP/IP)* with IP / ports. In simulation the device panel is disabled unless *Use simulator console emulation* is ticked. |
-| Units | Raw unsigned code, signed 24-bit (LSB), signed × multiplier (default 0.596 µV/LSB, shown in V with SI prefixes). |
+| Units | Raw unsigned code, signed 24-bit (LSB), signed × multiplier (0.596 µV/LSB at every start, not saved between sessions; shown in V with SI prefixes). |
 | Screen | All 4 channels in one plot, 10 × 8 divisions. Per channel: on/off, display gain ×, offset (spin box or drag the `n▶` marker). |
 | Horizontal | Timebase 1 µs/div … 1 s/div (limited to what the ~8.4 M-sample buffer holds at the current rate), trigger position. |
 | Vertical | Scale per division, center, *Auto Y*, mouse wheel / drag on the Y axis. |
@@ -95,7 +108,7 @@ python -m unittest discover -s tests -v
 `adc_simulator.py` now also emulates the console (`device_emulator.py`), using the same
 command table, texts and error codes as `console.c`:
 
-* `ADC STOP` pauses the stream and prints the DMA timeout dump.
+* `ADC STOP` pauses the stream, silently, like the firmware.
 * `ANALOG_PWR OFF` makes the inputs read about 0.
 * PGA codes scale the amplitude by code/0x40. This is a simulation-only model.
 * `ADC SET FLTR` / `CLK_DIV` change the stream rate with the firmware's formula.

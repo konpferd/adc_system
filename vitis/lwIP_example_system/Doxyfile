@@ -1,0 +1,22 @@
+# Doxygen configuration for the firmware. Run "doxygen" in this folder;
+# HTML output goes to docs/html.
+PROJECT_NAME           = "ADC firmware"
+PROJECT_BRIEF          = "ADS127L14 / TE0720 data acquisition firmware (FreeRTOS + lwIP)"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = src
+FILE_PATTERNS          = *.c *.h
+RECURSIVE              = NO
+EXTRACT_ALL            = NO
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+OPTIMIZE_OUTPUT_FOR_C  = YES
+JAVADOC_AUTOBRIEF      = YES
+TYPEDEF_HIDES_STRUCT   = YES
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_NO_PARAMDOC       = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HAVE_DOT               = NO
+QUIET                  = YES

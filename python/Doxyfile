@@ -3,7 +3,7 @@
 PROJECT_NAME           = "ADC host tools"
 PROJECT_BRIEF          = "Scope, capture, simulator and device console for the ADS127L14 / TE0720 ADC"
 OUTPUT_DIRECTORY       = docs
-INPUT                  = adc_common adc_scope test_generator capture_data_app run_adc_scope.py
+INPUT                  = adc_common adc_scope adc_cli_logger csv_plot test_generator run_adc_scope.py
 FILE_PATTERNS          = *.py
 EXCLUDE_PATTERNS       = */old/* */captures/*
 RECURSIVE              = YES

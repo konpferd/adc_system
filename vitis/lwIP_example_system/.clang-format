@@ -1,0 +1,25 @@
+# Zephyr RTOS coding style (subset of zephyrproject-rtos/zephyr/.clang-format)
+# Run: clang-format -i src/*.c src/*.h
+---
+BasedOnStyle: LLVM
+AlignConsecutiveMacros: AcrossComments
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BitFieldColonSpacing: After
+BreakBeforeBraces: Linux
+ColumnLimit: 100
+ContinuationIndentWidth: 8
+IndentCaseLabels: false
+IndentGotoLabels: false
+IndentWidth: 8
+InsertBraces: true
+InsertNewlineAtEOF: true
+SpaceBeforeParens: ControlStatementsExceptControlMacros
+SortIncludes: Never
+TabWidth: 8
+UseTab: ForContinuationAndIndentation
+KeepEmptyLinesAtTheStartOfBlocks: false

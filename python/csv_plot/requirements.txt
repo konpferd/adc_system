@@ -1,4 +1,4 @@
-# ADC capture viewer (adc_plot_csv.py)
+# ADC capture viewer (adc_plot_gui.py)
 # Install:  python -m pip install -r requirements.txt
 # Python 3.9 or newer. Developed and smoke-tested with Python 3.12,
 # numpy 2.4, pandas 3.0, pyqtgraph 0.14, PySide6 6.12.

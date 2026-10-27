@@ -34,20 +34,6 @@ NUM_PGA_CHANNELS: int = 4
 PGA_MAX_CODE: int = 0x7F
 
 
-def pga_physical_to_channel(index: int) -> int:
-    """!
-    @brief Map a potentiometer index of "PGA DISPLAY_SETTINGS" to the logical ADC channel.
-
-    The firmware reports the potentiometers in daisy-chain (board wiring) order, which is the
-    reverse of the ADC channel numbering used by SET_GAIN / READ_GAIN: pot 0 = ch3 ... pot 3 = ch0.
-    The order itself is a hardware property and must not be changed on the host side.
-
-    @param index  Potentiometer index as printed by the firmware (0..3).
-    @return Logical channel number (0..3).
-    """
-    return NUM_PGA_CHANNELS - 1 - index
-
-
 # --------------------------------------------------------------------------------------
 # Line classification
 # --------------------------------------------------------------------------------------
@@ -206,8 +192,8 @@ def parse_pga_settings(lines: Iterable[str]) -> PgaSettingsReport:
     """!
     @brief Parse the lines printed by pga_spi_display_settings().
 
-    The firmware lists the potentiometers in wiring order; the returned arrays are indexed by
-    logical ADC channel (see pga_physical_to_channel()).
+    The firmware lists the codes by ADC channel (ch0..ch3), the same numbering as
+    SET_GAIN / READ_GAIN; the returned arrays use that index.
 
     @param lines  Console lines (other lines are ignored).
     @return Parsed report; valid is True when all 8 values were found.
@@ -222,12 +208,12 @@ def parse_pga_settings(lines: Iterable[str]) -> PgaSettingsReport:
             continue
         m = re.match(r"PGA channel (\d)\s*:\s*" + _RE_HEX, s)
         if m:
-            rep.rdac[pga_physical_to_channel(int(m.group(1)))] = int(m.group(2), 16)
+            rep.rdac[int(m.group(1))] = int(m.group(2), 16)
             seen |= 1 << int(m.group(1))
             continue
         m = re.match(r"PGA eeprom ch(\d)\s*:\s*" + _RE_HEX, s)
         if m:
-            rep.eeprom[pga_physical_to_channel(int(m.group(1)))] = int(m.group(2), 16)
+            rep.eeprom[int(m.group(1))] = int(m.group(2), 16)
             seen |= 1 << (4 + int(m.group(1)))
     rep.valid = seen == 0xFF
     return rep
@@ -424,12 +410,12 @@ def format_pga_settings(rdac: Sequence[int], eeprom: Sequence[int], enabled: boo
     @param rdac     Current wiper codes indexed by logical channel ch0..ch3.
     @param eeprom   EEPROM codes indexed by logical channel ch0..ch3.
     @param enabled  PGA ready flag.
-    @return Lines without terminators, potentiometers in wiring order like the firmware.
+    @return Lines without terminators, listed by ADC channel like the firmware.
     """
     lines: List[str] = ["====== PGA SETTINGS ======", f"PGA {'enabled' if enabled else 'disabled'}", ""]
-    lines += [f"PGA channel {i}  : 0x{rdac[pga_physical_to_channel(i)]:02X}" for i in range(4)]
+    lines += [f"PGA channel {i}  : 0x{rdac[i]:02X}" for i in range(4)]
     lines.append("")
-    lines += [f"PGA eeprom ch{i} : 0x{eeprom[pga_physical_to_channel(i)]:02X}" for i in range(4)]
+    lines += [f"PGA eeprom ch{i} : 0x{eeprom[i]:02X}" for i in range(4)]
     lines.append("==========================")
     return lines
 

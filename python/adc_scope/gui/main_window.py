@@ -1507,8 +1507,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.cmb_unit.setCurrentIndex(int(get("unit", UNIT_VOLT, int)))
         self.cmb_unit.blockSignals(False)
         self.spn_uv.blockSignals(True)
-        self.spn_uv.setValue(float(get("uv_per_lsb", DEFAULT_UV_PER_LSB, float)))
+        self.spn_uv.setValue(DEFAULT_UV_PER_LSB)    # never restored: always start at the default
         self.spn_uv.blockSignals(False)
+        s.remove("uv_per_lsb")
         self.cmb_tb.blockSignals(True)
         self.cmb_tb.setCurrentIndex(self._tb_index(float(get("timebase", config.DEFAULT_TIMEBASE, float))))
         self.cmb_tb.blockSignals(False)
@@ -1535,7 +1536,6 @@ class MainWindow(QtWidgets.QMainWindow):
         s.setValue("capture_name", self.edt_name.text())
         s.setValue("capture_limit_mb", self.spn_limit.value())
         s.setValue("unit", self.cmb_unit.currentIndex())
-        s.setValue("uv_per_lsb", self.spn_uv.value())
         s.setValue("timebase", float(self.cmb_tb.currentData()))
         s.setValue("y_center", self.y_center)
         s.setValue("y_span", self.y_span)

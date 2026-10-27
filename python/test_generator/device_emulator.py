@@ -15,7 +15,7 @@ start-up banner, broadcast logging and error codes, plus the state those command
     (code / 0x40), a simulation-only model so gain changes are visible in the data.
     The potentiometers need analog power: without it SET_GAIN fails with -4 and
     switching power on reloads the wipers from EEPROM. DISPLAY_SETTINGS lists the
-    potentiometers in board wiring order (reverse of the channel numbering).
+    codes by ADC channel, like SET_GAIN / READ_GAIN.
   - ADC configuration (ADC SET ...): FLTR and CLK_DIV change the stream sample rate using
     the same formula as the firmware
 

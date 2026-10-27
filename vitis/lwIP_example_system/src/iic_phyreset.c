@@ -26,10 +26,17 @@
  *
  */
 
+/**
+ * @file iic_phyreset.c
+ * @brief PHY reset through the I2C I/O expander of the ZCU102 (Xilinx template).
+ *
+ * Built only for the ZCU102; unused on the TE0720.
+ */
+
 #include <stdio.h>
 
 #include "xparameters.h"
-#if defined (__arm__) || defined(__aarch64__)
+#if defined(__arm__) || defined(__aarch64__)
 #include "xil_printf.h"
 #endif
 
@@ -37,77 +44,70 @@
 #ifdef XPAR_XIICPS_0_DEVICE_ID
 #include "xiicps.h"
 
-#define BUF_LEN		10U
+#define BUF_LEN 10U /**< I2C write buffer size. */
 
-#define IOEXPANDER1_ADDR		0x20U
+#define IOEXPANDER1_ADDR 0x20U /**< I2C address of the I/O expander. */
 
-#define IIC_SCLK_RATE_IOEXP		400000
+#define IIC_SCLK_RATE_IOEXP 400000 /**< I2C clock rate, in Hz. */
 
-#define CMD_CFG_0_REG		0x06U
-#define CMD_OUTPUT_0_REG	0x02U
-#define DATA_OUTPUT			0x0U
+#define CMD_CFG_0_REG    0x06U /**< Expander port 0 configuration register. */
+#define CMD_OUTPUT_0_REG 0x02U /**< Expander port 0 output register. */
+#define DATA_OUTPUT      0x0U  /**< All port 0 pins as outputs. */
 
-#define DATA_COMMON_CFG		0xE0U
-#define DATA_GT_0000_CFG	0x00U
+#define DATA_COMMON_CFG  0xE0U /**< Port 0 output value. */
+#define DATA_GT_0000_CFG 0x00U /**< Port 0 output value, GT bits. */
 
-XIicPs I2c0InstancePtr;
+XIicPs I2c0InstancePtr; /**< I2C driver instance. */
 
+/**
+ * @brief Release the PHY reset through the I/O expander.
+ *
+ * @retval XST_SUCCESS PHY reset released.
+ * @retval XST_FAILURE I2C access failed.
+ */
 int IicPhyReset(void)
 {
-
 	u8 WriteBuffer[BUF_LEN] = {0};
 	XIicPs_Config *I2c0CfgPtr;
 	int Status = XST_SUCCESS;
 
-	/* Initialize the IIC0 driver so that it is ready to use */
 	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
 	if (I2c0CfgPtr == NULL) {
 		Status = XST_FAILURE;
 		return Status;
 	}
 
-	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr,
-			I2c0CfgPtr->BaseAddress);
+	Status = XIicPs_CfgInitialize(&I2c0InstancePtr, I2c0CfgPtr, I2c0CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		return Status;
 	}
 
-	/* Set the IIC serial clock rate */
 	XIicPs_SetSClk(&I2c0InstancePtr, IIC_SCLK_RATE_IOEXP);
 
-	/* Configure I/O pins as Output */
 	WriteBuffer[0] = CMD_CFG_0_REG;
 	WriteBuffer[1] = DATA_OUTPUT;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-			WriteBuffer, 2, IOEXPANDER1_ADDR);
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr, WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		return Status;
 	}
 
-	/* Wait until bus is idle to start another transfer */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr));
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr)) {
+	}
 
-	/*
-	 * Deasserting I2C_MUX_RESETB
-	 * And GEM3 Resetb
-	 * Selecting lanes based on configuration
-	 */
 	WriteBuffer[0] = CMD_OUTPUT_0_REG;
-	/* gt0000 or no GT configuration */
+
 	WriteBuffer[1] = DATA_COMMON_CFG | DATA_GT_0000_CFG;
 
-	/* Send the Data */
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
-			WriteBuffer, 2, IOEXPANDER1_ADDR);
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr, WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		return Status;
 	}
 
-	/* Wait until bus is idle */
-	while (XIicPs_BusIsBusy(&I2c0InstancePtr));
+	while (XIicPs_BusIsBusy(&I2c0InstancePtr)) {
+	}
 
 	xil_printf("IIC PHY reset on ZCU102 successful \n\r");
 }

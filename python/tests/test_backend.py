@@ -127,6 +127,20 @@ class TestProtocol(unittest.TestCase):
         self.assertEqual(cp.classify_line("[ADC CONFIG] Configuring X ... FAIL [ERR: -3]"), cp.LineKind.FAULT)
 
 
+    def test_pga_settings_by_channel(self) -> None:
+        """!
+        @brief PGA DISPLAY_SETTINGS lists the codes by ADC channel and parses back unchanged.
+        """
+        rdac: List[int] = [0x10, 0x20, 0x30, 0x40]
+        eeprom: List[int] = [0x11, 0x21, 0x31, 0x41]
+        lines: List[str] = cp.format_pga_settings(rdac, eeprom)
+        self.assertIn("PGA channel 0  : 0x10", lines)
+        self.assertIn("PGA eeprom ch3 : 0x41", lines)
+        rep = cp.parse_pga_settings(lines)
+        self.assertTrue(rep.valid)
+        self.assertEqual(rep.rdac, rdac)
+        self.assertEqual(rep.eeprom, eeprom)
+
     def test_device_temp_reply(self) -> None:
         """!
         @brief DEVICE_TEMP text round trip, including negative temperatures.
